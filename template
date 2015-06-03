@@ -1,0 +1,31 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Jun 3, 2015
+ *      Author: dcox9
+ */
+/************************************************
+*AUTHOR       :
+*STUDENT ID   :
+*LAB #        :
+*CLASS        :
+*SECTION      :
+*DUE DATE	  :
+************************************************/
+
+
+
+
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main ()
+{
+
+cout << "HEllo" << endl;
+
+
+}
