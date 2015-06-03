@@ -1,97 +1,114 @@
-/*
- * main.cpp
- *
- *  Created on: Jun 3, 2015
- *      Author: dcox9
- */
-
-/*
- * main.cpp
- *
- *  Created on: Jun 3, 2015
- *      Author: dcox9
- */
-/************************************************
-*AUTHOR       :
-*STUDENT ID   :
-*LAB #        :
-*CLASS        :
-*SECTION      :
-*DUE DATE	  :
-************************************************/
-
+/*************************************************
+*AUTHOR       : Daniel Cox
+*STUDENT ID   :	900360
+*LAB #1       : Them Park Day Planner
+*CLASS        : CS 1B
+*SECTION      : Summer
+*DUE DATE	  : 06/04/2015
+***************************************************/
 
 #include <iostream>
 #include <iomanip>
 #include <string>
 using namespace std;
 
+/*************************************************
+ *
+ *  Theme Park Day Planner
+ *
+ *------------------------------------------------
+ *
+ *	This program creates a Theme Park Day planner by asking
+ *	the user for questions about a child such as age, name,
+ *	food preferences. The program asks for question as
+ *	input and outputs what the child will be doing as activities
+ *	what food to pack for the child.
+ *
+ --------------------------------------------------
+ * INPUT:
+ * 		age - integer of childs age
+ * 		name - string with childs name.
+ * 		veg - char y/n
+ * 		cheese - char y/n
+ *
+ * 	OUTPUT:
+ * 		attraction - string to output childs activities
+ * 		meal - string, description of child's meal
+ *
+
+ *************************************************/
+
 int main()
 {
 
 
-/*************************************************
- * PROGRAMMER:
- * CLASS:
- * SECTION:
- * LAB_NUM:
- * LAB_NAME:
- *************************************************/
-string name;
-int age;
-char veg;
-char cheese;
-string attraction;
-string meal;
-double admissionFee;
-double foodCost;
-int kidCount;
+string name;					// INPUT - child's name
+int age;						// INPUT - child's age
+int kidCount;					// CALC - counter for each child
+char veg;						// INPUT - Y/N
+char cheese;					// INPUT - Y/N
+string attraction;				// OUTPUT - description of child's activities
+string meal;					//OUTPUT - description of child's meal
+double admissionFee;			//CALC - cost of admission based on age
+double foodCost;				//CALC - cost of food based on preference
 
 
 
 cout << "Welcome to the Theme Park Planner! Please input each kids information.\n" << endl;
 
+//initializing for calculations
 foodCost = 0;
 admissionFee = 0;
-kidCount = 0;
+kidCount = 1;
 
-while (kidCount != 10)
+//initializing loop control variable
+int i;
+
+//loop prompts user to answer 4 questions for 10 different children.
+for (i=0; kidCount <= 1; i++)
 {
-kidCount = 0;
-cout << "Kid #" << kidCount;
 
-cout << "What is your kids name?";
+cout << left;
+cout << "Kid #" << kidCount << endl;
+
+cout << setw(32) << "What is your kids name?";
 cin >> name;
+cin.ignore(100, '\n');
 
-cout << "How old is the kid?";
+
+cout << setw(32) << "How old is the kid?";
 cin >> age;
 
-cout << "Vegetarian(Y/N)";
+
+cout << setw(32) << "Vegetarian(Y/N)";
 cin  >> veg;
 
-cout << "Does he/she like cheese(Y/N)?";
+cout << setw(32) << "Does he/she like cheese(Y/N)?";
 cin >> cheese;
 
-if (age > 5)
+// if then else block to decide which attraction each child will get based on age
+// addmissionFee keeps running total for the cost of all children's attractions
+if (age < 5)
 	{
-		attraction = "will be going on the Ferris Wheel and will be visiting the Sheep Petting Zoo.";
+		attraction = " will be going on the Ferris Wheel and will be visiting the Sheep Petting Zoo.";
 	}
-	else if (age > 5 && age <= 12)
+	else if (age >= 5 && age <= 12)
 		{
-			admissionFee += 15;
+			admissionFee += 15.00;
 			attraction =" will be going on the Tea Cups and will be playing laser tag.";
 		}
 
 		else
 			{
-			admissionFee += 20;
+			admissionFee += 20.00;
 				attraction = " will be going on the Roller Coaster and the Zip Line.";
 			}
 
-
-/*if (veg == 'N' && cheese == 'Y' )
+// if then else block to decide which type of food should bring based on preference
+// foodCost keeps running total of food costs for all children
+if (veg == 'N' && cheese == 'Y' )
 	{
-		foodCost += 3.5;
+		foodCost += 3.50;
 		meal = "Pack a Cheeseburger for ";
 	}
 	else if (veg == 'N' && cheese == 'N')
@@ -101,7 +118,7 @@ if (age > 5)
 		}
 		else if (veg == 'Y' && cheese == 'Y')
 			{
-				foodCost += 2.5;
+				foodCost += 2.50;
 				meal = "Pack a Cheese Pizza for ";
 			}
 			else
@@ -109,19 +126,25 @@ if (age > 5)
 					foodCost += 1.75;
 					meal = "Pack a Happy Garden Meal for ";
 				}
-*/
 
-cout << name << attraction << meal << name << ".";
+cout << endl;
+cout << name << attraction << endl << meal << name << "!" << endl << endl << endl << endl ;
+
 
 kidCount++;
 
 }
 
-cout << "The total cost for the day is: " << foodCost + admissionFee << endl;
-cout << "The average cost per is: " << (foodCost + admissionFee)/10 << endl;
+
+cout << endl << fixed << setprecision(2);
+cout << setw(32) << "The total cost for the day is:" << "$"<< foodCost + admissionFee << endl;
+cout << setw(32) << "The average cost per is:" << "$ " << (foodCost + admissionFee)/10 << endl;
 
 
 return 0;
 
 }
+
+
+
 
