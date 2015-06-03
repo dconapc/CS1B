@@ -4,6 +4,13 @@
  *  Created on: Jun 3, 2015
  *      Author: dcox9
  */
+
+/*
+ * main.cpp
+ *
+ *  Created on: Jun 3, 2015
+ *      Author: dcox9
+ */
 /************************************************
 *AUTHOR       :
 *STUDENT ID   :
@@ -14,18 +21,107 @@
 ************************************************/
 
 
-
-
-
 #include <iostream>
 #include <iomanip>
-
+#include <string>
 using namespace std;
 
-int main ()
+int main()
 {
 
-cout << "HEllo" << endl;
 
+/*************************************************
+ * PROGRAMMER:
+ * CLASS:
+ * SECTION:
+ * LAB_NUM:
+ * LAB_NAME:
+ *************************************************/
+string name;
+int age;
+char veg;
+char cheese;
+string attraction;
+string meal;
+double admissionFee;
+double foodCost;
+int kidCount;
+
+
+
+cout << "Welcome to the Theme Park Planner! Please input each kids information.\n" << endl;
+
+foodCost = 0;
+admissionFee = 0;
+kidCount = 0;
+
+while (kidCount != 10)
+{
+kidCount = 0;
+cout << "Kid #" << kidCount;
+
+cout << "What is your kids name?";
+cin >> name;
+
+cout << "How old is the kid?";
+cin >> age;
+
+cout << "Vegetarian(Y/N)";
+cin  >> veg;
+
+cout << "Does he/she like cheese(Y/N)?";
+cin >> cheese;
+
+if (age > 5)
+	{
+		attraction = "will be going on the Ferris Wheel and will be visiting the Sheep Petting Zoo.";
+	}
+	else if (age > 5 && age <= 12)
+		{
+			admissionFee += 15;
+			attraction =" will be going on the Tea Cups and will be playing laser tag.";
+		}
+
+		else
+			{
+			admissionFee += 20;
+				attraction = " will be going on the Roller Coaster and the Zip Line.";
+			}
+
+
+/*if (veg == 'N' && cheese == 'Y' )
+	{
+		foodCost += 3.5;
+		meal = "Pack a Cheeseburger for ";
+	}
+	else if (veg == 'N' && cheese == 'N')
+		{
+			foodCost += 3.25;
+			meal = "Pack a Hamburger for ";
+		}
+		else if (veg == 'Y' && cheese == 'Y')
+			{
+				foodCost += 2.5;
+				meal = "Pack a Cheese Pizza for ";
+			}
+			else
+				{
+					foodCost += 1.75;
+					meal = "Pack a Happy Garden Meal for ";
+				}
+*/
+
+cout << name << attraction << meal << name << ".";
+
+kidCount++;
 
 }
+
+cout << "The total cost for the day is: " << foodCost + admissionFee << endl;
+cout << "The average cost per is: " << (foodCost + admissionFee)/10 << endl;
+
+
+return 0;
+
+}
+
