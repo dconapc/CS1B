@@ -1,0 +1,85 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Jun 5, 2015
+ *      Author: dcox9
+ */
+
+/************************************************
+*AUTHOR       :
+*STUDENT ID   :
+*LAB #        :
+*CLASS        :
+*SECTION      :
+*DUE DATE	  :
+************************************************/
+#include <iostream>
+#include <iomanip>
+#include <string>
+using namespace std;
+
+void userInfo (string name, char gender);
+float average (int heads, int tails, int flips);
+bool coinToss ();
+void results ();
+
+int main()
+{
+	/*************************************************
+	 * PROGRAMMER:
+	 * CLASS:
+	 * SECTION:
+	 * LAB_NUM:
+	 * LAB_NAME:
+	 *************************************************/
+	string name;
+	char gender;
+
+	cout << "Welcome  to  coin  toss!    Get  3  heads  in  a  row  to win!";
+
+	userInfo(name, gender);
+
+	//bool threeHeads;
+
+
+/*	while (threeHeads != true)
+	{
+
+	}
+*/
+
+}
+
+void userInfo (string &name, char &gender)
+		{
+
+		cout << "What is your name?";
+		cin >> name;
+		cout <<"What is your gender (m/f)";
+		//cin >> gender;
+
+		}
+float average (int heads, int tails, int flips)
+	{
+
+	return heads / flips;
+
+	}
+
+bool coinToss ()
+	{
+
+	return rand()%2;
+
+	}
+
+void results ()
+	{
+
+	cout << "It took you  " << tosses << " to get 3 heads in a row." << endl;
+	cout << "On average you flipped heads" << average << " % of the time.";
+
+	}
+
+
+}
