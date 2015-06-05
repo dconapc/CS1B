@@ -6,80 +6,134 @@
  */
 
 /************************************************
-*AUTHOR       :
-*STUDENT ID   :
-*LAB #        :
-*CLASS        :
-*SECTION      :
-*DUE DATE	  :
-************************************************/
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Assignment   : 1
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	  : 6/9/15
+ ************************************************/
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <cmath>
 using namespace std;
 
-void userInfo (string name, char gender);
+void userInfo (string &name, char &gender, string &surname);
 float average (int heads, int tails, int flips);
-bool coinToss ();
-void results ();
+bool coinToss (bool &coinToss);
+int showResults (int heads, int tails, int flips);
 
 int main()
 {
 	/*************************************************
-	 * PROGRAMMER:
-	 * CLASS:
-	 * SECTION:
+	 * PROGRAMMER: Daniel Cox
+	 * CLASS:      CS 1B
+	 * SECTION:	   Summer
 	 * LAB_NUM:
 	 * LAB_NAME:
 	 *************************************************/
-	string name;
-	char gender;
+	int threeHeads;
+	int heads;
+	int tails;
+	int flips;
+	char userGender;
+	bool coinFlip;
+	string userName;
+	string userSurname;
 
-	cout << "Welcome  to  coin  toss!    Get  3  heads  in  a  row  to win!";
 
-	userInfo(name, gender);
+	cout << "Welcome  to  coin  toss! Get  3  heads  in  a  row  to win!" << endl << endl;
 
-	//bool threeHeads;
+	userInfo(userName, userGender, userSurname);
 
+	cout << "Try to get 3 heads in a row. Good Luck " << userSurname << userName << "!" << endl << endl;
 
-/*	while (threeHeads != true)
+	threeHeads = 0;
+	heads = 0;
+	tails = 0;
+	flips = 0;
+
+	cin.ignore (100, '\n');
+	while (threeHeads < 3)
 	{
+		cout << "Press <enter> to flip";
+		cin.ignore();
+		coinToss(coinFlip);
+		flips++;
 
+		if (coinFlip == 0)
+		{
+			threeHeads++;
+			heads++;
+
+		}
+			else
+			{
+			tails++;;
+			threeHeads = 0;
+			}
 	}
-*/
+
+average (heads, tails, flips);
+showResults (heads, tails, flips);
+
 
 }
 
-void userInfo (string &name, char &gender)
-		{
+void userInfo (string &name, char &gender, string &surname)
+{
 
-		cout << "What is your name?";
-		cin >> name;
-		cout <<"What is your gender (m/f)";
-		//cin >> gender;
+	cout << "What is your name?";
+	cin >> name;
+	cout <<"What is your gender (m/f)";
+	cin >> gender;
 
-		}
+	if (gender == 'm')
+		surname = "Mr.";
+	else
+		surname = "Ms.";
+
+
+}
 float average (int heads, int tails, int flips)
+{
+
+	return (heads/float(flips)*100);
+
+}
+
+bool coinToss (bool &coinFlip)
+{
+
+	float flip;
+
+	srand(time(0));
+	flip = rand() % 2;
+
+	if (flip == 0)
 	{
-
-	return heads / flips;
-
+		coinFlip = false;
+		cout << "Head" << endl;
 	}
 
-bool coinToss ()
+	else if (flip == 1)
 	{
-
-	return rand()%2;
-
+		coinFlip = true;
+		cout << "Tail" << endl;
+	}
+	else {
+		cout << "Somtehing bad happened";
 	}
 
-void results ()
-	{
+	return coinFlip;
 
-	cout << "It took you  " << tosses << " to get 3 heads in a row." << endl;
-	cout << "On average you flipped heads" << average << " % of the time.";
+}
 
-	}
+int showResults (int heads, int tails, int flips)
+{
 
-
+	cout << endl << "It took you " << flips << " tosses to get 3 heads in a row." << endl;
+	cout << "On average you flipped heads " << setprecision(2) << average(heads, tails, flips) << "% of the time.";
+	return 0;
 }
