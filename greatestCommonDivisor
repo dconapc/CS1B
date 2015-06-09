@@ -54,3 +54,73 @@ int main()
 
 	return 0;
 }
+#ifndef HEADER_H_
+#define HEADER_H_
+
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <sstream>
+
+using namespace std;
+
+//prototypes
+void printHeader1(ostream &output);
+string printHeader2();
+int greatestCommonDivisor (int x, int y);
+
+
+
+#endif /* HEADER_H_ */
+
+#include "header.h"
+
+//function using ostream to out put assignment header
+void printHeader1(ostream &output)
+{
+	output <<   "/************************************************\n"
+				"*AUTHOR       :                                 *\n"
+				"*STUDENT ID   :                                 *\n"
+			    "*Assignment   :                                 *\n"
+				"*CLASS        :                                 *\n"
+				"*SECTION      :                                 *\n"
+				"*DUE DATE     :                                 *\n"
+				"/***********************************************/\n" << endl << endl;
+
+}
+
+#include "header.h"
+
+//function using ostringstream to out put assignment header
+string printHeader2()
+{
+	ostringstream output;
+
+
+	output <<   "/************************************************\n"
+		   <<	"*AUTHOR       :                                 *\n"
+		   <<	"*STUDENT ID   :                                 *\n"
+		   <<   "*Assignment   :                                 *\n"
+		   <<	"*CLASS        :                                 *\n"
+		   <<	"*SECTION      :                                 *\n"
+		   <<	"*DUE DATE     :                                 *\n"
+		   <<	"/***********************************************/\n" << endl << endl;
+
+	return output.str();
+}
+#include "header.h"
+
+//function to calculate greatest common denominator of to integers
+int greatestCommonDivisor (int x, int y)
+{
+
+		int r;
+
+	    while ( y != 0) {
+	        r = x % y;
+	        x = y;
+	        y = r;
+	    }
+	    return x;
+
+}
