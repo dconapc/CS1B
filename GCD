@@ -1,0 +1,94 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Jun 9, 2015
+ *      Author: dcox9
+ */
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Assignment   : 1
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	  : 6/9/15
+ ************************************************/
+
+#include <iostream>
+//#include <ostringstream>
+#include <ostream>
+#include <iomanip>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+//void printHeader1();
+string printHeader2(string ouput);
+int greatesCommonDivisor (int x, int y);
+
+int main()
+
+{
+	int x;
+	int y;
+	
+	
+	//ifstream inData;
+	ofstream outData;
+
+	//printHeader1();
+
+	//outData.open("output.dat");
+
+	//printHeader2();
+
+	cout << "fdasf";
+	
+	cout << setw(29) << "Enter the first integer:";
+	cin >> x;
+	cout << setw(29) << "Enter the second integer:";
+	cin >> y;
+	
+ 
+	greatesCommonDivisor (x, y);
+
+}
+
+void printHeader1()
+{
+	cout <<     "/************************************************\n"
+				"*AUTHOR       :                                 *\n"
+				"*STUDENT ID   :                                 *\n"
+			    "*Assignment   :                                 *\n"
+				"*CLASS        :                                 *\n"
+				"*SECTION      :                                 *\n"
+				"*DUE DATE	   :                                 *\n"
+				"/***********************************************/\n";
+}
+
+string printHeader2(string output)
+{
+	output =     "/************************************************\n"
+				"*AUTHOR       :                                 *\n"
+				"*STUDENT ID   :                                 *\n"
+			    "*Assignment   :                                 *\n"
+				"*CLASS        :                                 *\n"
+				"*SECTION      :                                 *\n"
+				"*DUE DATE	   :                                 *\n"
+				"/***********************************************/\n";
+
+		return output;
+}
+
+int greatesCommonDivisor (int x, int y)
+{
+	    while ( y != 0) {
+	        int r = x % y;
+	        x = y;
+	        y = r;
+	    }
+	    return x;
+
+}
