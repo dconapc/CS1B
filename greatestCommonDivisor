@@ -1,0 +1,56 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Jun 9, 2015
+ *      Author: dcox9
+ */
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab#         : 1
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/10/15
+ ************************************************/
+
+#include "header.h"
+
+int main()
+
+{
+	int x;                           //input - integer1 for greatestCommonDenominator function
+	int y;							 //input - integer2 for ""        ""
+	ofstream outData;                //data - declare output stream
+
+
+	outData.open("output.dat");
+	//print assignment header with ostream to console
+	printHeader1(cout);
+	//print assignment header with ostream to output file
+	printHeader1(outData);
+
+	//print assignment header with ostringstream to console
+	cout << printHeader2();
+	//print assignment header with ostringstream to ouput file
+	outData << printHeader2();
+
+
+	//loop to prompt user for four sets of numbers to calculate GCD
+	for (int i = 0; i < 4; i++ )
+	{
+
+	cout << setw(26) << left << "Enter the first integer:";
+	cin >> x;
+	cout << setw(26) << left << "Enter the second integer:";
+	cin >> y;
+	cout << endl << endl;
+	//output to file using ofstream variable declaration
+	outData << "The GCD for " << x << " & " << y << " = " << greatestCommonDivisor (x, y) << endl << endl;
+
+	}
+
+	cout << "Thank you for using my GCD calculator";
+
+	return 0;
+}
