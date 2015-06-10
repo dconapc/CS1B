@@ -1,0 +1,115 @@
+/*
+ * main.cpp
+ *
+ *  Created on: Jun 10, 2015
+ *      Author: dcox9
+ */
+
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab#         : 4
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/12/15
+ ************************************************/
+
+
+/*************************************************
+ *
+ *  Introduction to Arrays
+ *
+ *------------------------------------------------
+ *
+ *	This program prompts the user to input 10 names
+ *	and intializes an array of type string that holds
+ *	the ten names. A loop is used to iterate through
+ *	the array to check to see if a search term matches
+ *	one of the terms of the array. If a term matches the
+ *	search term the program outputs the number of times
+ *	the search term is matched.
+ *
+ --------------------------------------------------
+ * INPUT:
+ * 		an array of ten names
+ *
+ * 	OUTPUT:
+ * 		The number of instances of a name in the
+ * 		array of the ten names.
+ *
+
+ *************************************************/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+int main ()
+{
+
+	int i;							//calc - interator for loop
+	int index;						//calc - index for loop
+	int instances;					/*calc - counter for number of instances of
+									  seach term*/
+	string ifDone;					/*input - check to see if user wants to
+									  break out of loop*/
+	string searchItem;				//input - term user inputs to search for
+	const int ARRAY_SIZE = 10;		//const - size of array of names
+
+
+	//declare string of 10 string variables
+	string userNameArray [ARRAY_SIZE];
+
+	//loop to prompt user and to input ten names into array
+	for (i = 0; i < 10; i++)
+	{
+
+	cout << "Enter name #" << i+1 << ". ";
+	cin >> userNameArray[i];
+
+	}
+
+
+	//loop to prompt user to enter a search term. End loop by pressing done
+	while (searchItem != "done")
+
+	{
+
+	cout << endl << "Who do you want to search for (enter done to exit)?";
+	cin >> searchItem;
+
+	ifDone = searchItem;
+
+	//break out of loop when user enters "done";
+	if (searchItem == "done")
+		break;
+
+	instances = 0;
+
+	/*loop traverses array one string at a time and counts how many times
+	the search term matches a term in the array*/
+	for (index = 0; index < ARRAY_SIZE; index++)
+	{
+		if (userNameArray[index] == searchItem)
+			instances ++;
+	}
+
+
+	//ouput results of search
+	if (instances > 0)
+	cout << "There are " << instances << " instances of the name " << searchItem
+	<< "." << endl;
+	else if (instances == 1)
+	cout << "There is one instance of the name " << searchItem;
+	else
+	cout << searchItem << "'s name does not exist in this list." << endl;
+
+  }
+
+	cout << endl << "Thank you for using my program!";
+	return 0;
+
+}
