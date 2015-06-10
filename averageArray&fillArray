@@ -1,0 +1,91 @@
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab Exercise : Function and Arrays
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/12/15
+ ************************************************/
+
+
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <fstream>
+
+using namespace std;
+
+
+double AverageArray (int array[], int arraySize);
+void FillArray (int intArray[], double floatArray[], string inputFile);
+
+int main ()
+{
+
+	string inputFile = "input.txt";
+
+	double floatArray[5];
+	int intArray[5];
+	int testAverage[5] = {6, 7, 8, 9, 45};
+	int arraySize = 5;
+	double average = 0;
+
+
+	FillArray(intArray, floatArray, inputFile);
+
+	cout << "Array One: "<< endl;
+
+	for (int index = 0; index < 5; index++ )
+		{
+			cout << intArray[index] << endl;
+		}
+
+	cout  << endl << "Array One: "<< endl;
+
+	for (int index = 0; index < 5; index++ )
+		{
+			cout << floatArray[index] << endl;
+		}
+
+
+	average = AverageArray (testAverage, arraySize);
+	cout << endl << "Testing AverageArray function ...  average = " << average;
+
+
+	return 0;
+}
+
+double AverageArray (int array[], int arraySize)
+{
+	int sum = 0;
+	int index = 0;
+
+	while (index < arraySize)
+	{
+		sum += array[index];
+
+		index++;
+	}
+
+	return sum / double(arraySize);
+}
+
+void FillArray (int intArray[], double floatArray[], string inputFile)
+{
+	ifstream inFile;
+
+	inFile.open(inputFile.c_str());
+
+
+	int index = 0;
+
+
+	while (inFile && index < 5)
+	{
+		inFile >> intArray[index];
+		inFile >> floatArray[index];
+		index++;
+	}
+
+	inFile.close();
+}
