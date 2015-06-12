@@ -1,0 +1,319 @@
+/*************************************************
+*AUTHOR       : Daniel Cox and Nick Francke
+*STUDENT ID   :	900360
+*LAB #5       : Binary Search
+*CLASS        : CS 1B
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***************************************************/
+#include "header.h"
+
+/*************************************************
+ *
+ *            Enumerated Types
+ *
+ *------------------------------------------------
+ * This program takes a given array and allows the
+ * user to search 4 numbers in the list using
+ * sequential search.  After that the program sorts
+ * the array using insertion sort, then allows the
+ * user to search 4 more numbers in the list using
+ * a binary search.
+ --------------------------------------------------
+ * INPUT:
+ *	num: The number the user searches for
+ *
+ *************************************************/
+
+
+
+int main ()
+{
+	// Constant Declarations
+	// AR_SIZE: The size of the array
+	const int AR_SIZE = 8;
+
+	// Variable Declarations
+	// CALC & OUT - Array the program uses for searching and sorting
+	int intArray[AR_SIZE] = {4, 1, 7, 12, 8, 13, 9, 21};
+	int num;	// IN & CALC - The number the user is searching for
+	int index;	// CALC - Index where the number is found
+
+	// printArray - Prints the array to console
+	printArray(intArray, AR_SIZE);
+
+	for (int i = 1; i <= 4; i++)
+	{
+		cout << "\nEnter an integer to search for: ";
+		cin >> num;
+
+		// sequentialSearch - Performs a sequential search on the array
+		index = sequentialSearch(intArray, AR_SIZE, num);
+
+		if (index != AR_SIZE)
+		{
+			cout << "The integer " << num << " was found in index #"
+				 << index << ".";
+		}
+		else
+		{
+			cout << num << " was not found!";
+		}
+		cout << endl;
+	}
+
+	// insertionSort - Sorts the array using the insertion
+	insertionSort(intArray, 8);
+
+	// printArray - Prints the array to console
+	printArray(intArray, 8);
+
+	for (int i = 1; i <= 4; i++)
+		{
+			cout << "\nEnter an integer to search for: ";
+			cin >> num;
+
+			// binarySearch - Performs a binary search on the array
+			index = binarySearch(intArray, AR_SIZE, num);
+
+			if (index != -1)
+			{
+				cout << "The integer " << num << " was found in index #"
+					 << index << ".";
+			}
+			else
+			{
+				cout << num << " was not found!";
+			}
+			cout << endl;
+		}
+
+	return 0;
+}
+
+
+/*************************************************
+*AUTHOR       : Daniel Cox and Nick Francke
+*STUDENT ID   :	900360
+*LAB #5       : Binary Search
+*CLASS        : CS 1B
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***************************************************/
+
+#ifndef HEADER_H_
+#define HEADER_H_
+
+#include <iostream>
+
+using namespace std;
+
+/**********************************************************************
+* insertionSort
+* 	This function sorts the given array using insertion sort
+*   - returns nothing.
+***********************************************************************/
+void insertionSort (int intAr[], const int SIZE);
+
+/**********************************************************************
+* printArray
+* 	This function prints the array to console in order
+*   - returns nothing.
+***********************************************************************/
+void printArray(const int INT_AR[], const int SIZE);
+
+/**********************************************************************
+* sequentialSearch
+* 	This function searches the array for a number using sequential search
+*   - returns index where the number was found.
+***********************************************************************/
+int sequentialSearch(const int INT_AR[], const int SIZE, const int SEARCH);
+
+/**********************************************************************
+* binarySearch
+* 	This function searches the array for a number using binary search
+*   - returns index where the number was found.
+***********************************************************************/
+int binarySearch(const int INT_AR[], const int SIZE, const int SEARCH);
+
+#endif /* HEADER_H_ */
+
+
+/*************************************************
+*AUTHOR       : Daniel Cox and Nick Francke
+*STUDENT ID   :	900360
+*LAB #5       : Binary Search
+*CLASS        : CS 1B
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***************************************************/
+#include "header.h"
+
+/**********************************************************************
+* FUNCTION printArray
+*______________________________________________________________________
+* 	This function prints the array to console in order
+*   - returns nothing.
+*______________________________________________________________________
+* PRE-CONDITIONS
+* 	intAr[]: The array we're printing
+* 	SIZE: The size of the array
+*
+* POST-CONDITIONS
+*     This function will output the array.
+***********************************************************************/
+void printArray(const int INT_AR[], const int SIZE)
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		cout << "Index #" << i << ": " << INT_AR[i] << endl;
+	}
+}
+
+/*************************************************
+*AUTHOR       : Daniel Cox and Nick Francke
+*STUDENT ID   :	900360
+*LAB #5       : Binary Search
+*CLASS        : CS 1B
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***************************************************/
+#include "header.h"
+
+/**********************************************************************
+* FUNCTION sequentialSearch
+*______________________________________________________________________
+* 	This function searches the array for a number using sequential search
+*   - returns index where the number was found.
+*______________________________________________________________________
+* PRE-CONDITIONS
+* 	INT_AR[]: The array we're searching
+* 	SIZE: The size of the array
+* 	SEARCH: The number we're searching for
+*
+* POST-CONDITIONS
+*     This function will return the index where we found the search number
+***********************************************************************/
+int sequentialSearch(const int INT_AR[], const int SIZE, const int SEARCH)
+{
+	int index;
+	bool found;
+
+	index = 0;
+	found = false;
+
+	while (!found && index < SIZE)
+	{
+		if (INT_AR[index] == SEARCH)
+		{
+			found = true;
+		}
+		else
+		{
+			index++;
+		}
+	}
+
+	return index;
+}
+
+/**********************************************************************
+* FUNCTION binarySearch
+*______________________________________________________________________
+* 	This function searches the array for a number using binary search
+*   - returns index where the number was found.
+*______________________________________________________________________
+* PRE-CONDITIONS
+* 	INT_AR[]: The array we're searching
+* 	SIZE: The size of the array
+* 	SEARCH: The number we're searching for
+*
+* POST-CONDITIONS
+*     This function will return the index where we found the search number
+***********************************************************************/
+int binarySearch(const int INT_AR[], const int SIZE, const int SEARCH)
+{
+	int bot;
+	int top;
+	int mid;
+	bool found;
+
+	found = false;
+	bot = 0;
+	top = SIZE - 1;
+
+	while (!found && bot <= top)
+	{
+		mid = (bot + top) / 2;
+
+		if (INT_AR[mid] == SEARCH)
+		{
+			found = true;
+		}
+		else
+		{
+			if (INT_AR[mid] < SEARCH)
+			{
+				bot = mid + 1;
+			}
+			else
+			{
+				top = mid - 1;
+			}
+		}
+	}
+	if (found)
+	{
+		return mid;
+	}
+	else
+	{
+		return -1;
+	}
+}
+
+
+/*************************************************
+*AUTHOR       : Daniel Cox and Nick Francke
+*STUDENT ID   :	900360
+*LAB #5       : Binary Search
+*CLASS        : CS 1B
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***************************************************/
+#include "header.h"
+
+/**********************************************************************
+* FUNCTION insertionSort
+*______________________________________________________________________
+* 	This function sorts the given array using insertion sort
+*   - returns nothing.
+*______________________________________________________________________
+* PRE-CONDITIONS
+* 	intAr[]: The array we're sorting
+* 	SIZE: The size of the array
+*
+* POST-CONDITIONS
+*     This function will sort the array.
+***********************************************************************/
+void insertionSort (int intAr[], const int SIZE)
+{
+
+	int j;
+	int temp;
+
+	cout << "\n\nPerforming Insertion Sort!\n\n";
+
+	for (int i = 1; i < SIZE; i++)
+	{
+		temp = intAr[i];
+		j = i - 1;
+		while (j >= 0 && intAr[j] > temp)
+		{
+			intAr[j + 1] = intAr[j];
+			j--;
+		}
+		intAr[j + 1] = temp;
+	}
+
+}
