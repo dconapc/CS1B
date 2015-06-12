@@ -1,0 +1,177 @@
+/**********************************************************************
+*AUTHOR       : Daniel Cox
+*STUDENT ID   :	900360
+*Exercise     : Enumerated Type
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***********************************************************************/
+
+#include "header.h"
+
+/***********************************************************************
+ *
+ *            Enumerated Types
+ *
+ *----------------------------------------------------------------------
+ * Program has to two functions one to convert a enum type to string
+ * and one to convert a string to an enum type. Program prompts user to
+ * input a day of the week. In converts the input from a string to an
+ * enum then from a enum to a string and prints it out.
+ -----------------------------------------------------------------------
+ * INPUT:
+ *		User us prompted to input a day of the week.
+ *
+ **********************************************************************/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+int main ()
+{
+	string today;    		//input - input string for day of the week
+
+	for (int i= 0; i < 8; i++)
+	{
+
+	//prompt user to enter day of the week.
+	cout << "What day is today? ";
+	cin >>  today;
+
+	//output is user input converted to datatype Days, converted back to
+	//string and output to the console.
+	cout << "Today is " << convertToString (convertToDays (today)) << "!" << endl << endl;
+
+	}
+
+	return 0;
+}
+
+/**********************************************************************
+*AUTHOR       : Daniel Cox
+*STUDENT ID   :	900360
+*Exercise     : Enumerated Type
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***********************************************************************/
+
+#ifndef HEADER_H_
+#define HEADER_H_
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+//enum Type Days declared to represent the days of the week
+enum Days
+{
+	SUNDAY,
+	MONDAY,
+	TUESDAY,
+	WEDNESDAY,
+	THURSDAY,
+	FRIDAY,
+	SATURDAY,
+};
+
+//prototypes for functions
+Days convertToDays(string in);
+
+
+string convertToString (Days in);
+
+
+#endif /* HEADER_H_ */
+
+/**********************************************************************
+*AUTHOR       : Daniel Cox
+*STUDENT ID   :	900360
+*Exercise     : Enumerated Type
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***********************************************************************/
+
+#include "header.h"
+
+//function converts a string into enum Type Days
+Days convertToDays (string in)
+{
+	Days out;
+
+	switch (toupper(in[0]))
+	{
+	case 'S':
+		if (toupper(in[1]) == 'A')
+			out = SATURDAY;
+		else
+			out = SUNDAY;
+	break;
+
+	case 'M': out = MONDAY;
+	break;
+
+	case 'T':
+		if (toupper(in[1] == 'U'))
+			out = TUESDAY;
+		else
+			out = THURSDAY;
+	break;
+
+	case 'W': out = WEDNESDAY;
+	break;
+
+	case 'F': out = FRIDAY;
+	break;
+
+	default :
+		cout << "**** INVALID INPUT! ****";
+	break;
+
+	}
+
+	return out;
+}
+
+
+/**********************************************************************
+*AUTHOR       : Daniel Cox
+*STUDENT ID   :	900360
+*Exercise     : Enumerated Type
+*SECTION      : Summer
+*DUE DATE	  : 06/16/2015
+***********************************************************************/
+
+#include "header.h"
+
+//function converts from enum Type Days to string
+string convertToString (Days in)
+{
+	string out;
+
+	switch (in)
+		{
+		case SUNDAY: out = "SUNDAY";
+		break;
+		case MONDAY: out = "MONDAY";
+		break;
+		case TUESDAY: out = "TUESDAY";
+		break;
+		case WEDNESDAY: out = "WEDNESDAY";
+		break;
+		case THURSDAY : out = "THURSDAY";
+		break;
+		case FRIDAY : out = "FRIDAY";
+		break;
+		case SATURDAY : out = "SATURDAY";
+		break;
+
+
+		}
+
+	return out;
+}
+
