@@ -1,0 +1,305 @@
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab Exercise : Structs
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+
+#include "header.h"
+
+
+/*************************************************
+ *
+ *            Structs
+ *
+ *------------------------------------------------
+ * This program reads from an input file. Data from
+ * the input file is stored in an array of structs.
+ * The program find the largest balance in the input
+ * file. Sums all of the balances and outputs these
+ * values to an output file. The user is prompted
+ * for a name to search the input for. If the search
+ * name is found. The associated struct is output to
+ * the output file.
+ --------------------------------------------------
+ * INPUT:
+ *	string: name of input file
+ *	string: name of output file
+ *	string: name to search for
+ *
+ *************************************************/
+
+int main ()
+
+{
+
+	string inputFile;					//input - name of input file
+	string outputFile;					//input - name of output file
+	string searchName = "";				//input - name to search for
+	Account accountArray[10];			//calc/data - array of structs
+	int largestIndex;					//calc - handler for return of searchBalance function
+	int sum;							//calc - handler for return of sumBalance function
+	int searchIndex;					//calc - handler for return of searchBalance function
+
+	ofstream outFile;                   //declare output stream variable
+
+
+	//prompt user to enter input and output files
+	cout << "What input file would you like to use: ";
+	cin >> inputFile;
+	cout << "What output file would you like to use: ";
+	cin >> outputFile;
+
+	//function to fill array of structs with values from inputFile
+	fillStructArray(accountArray, 10, inputFile);
+
+	//open output file
+	outFile.open(outputFile.c_str());
+
+
+	//call to function find largest balance in array of structs
+	largestIndex = searchBalance(accountArray, 10);
+
+	//ouput accountArray for largest balance to output file
+	outFile << "Highest Balance:                     \n"
+			   "ID # NAME                 BALANCE DUE\n"
+               "---- -------------------- -----------\n";
+	outfile << accountArray[largetsIndex].id << " " << acountArray[largestIndex].name << " "
+			<< accountArray[largestIndex].balance << endl;
+
+
+	//call to function to sum all balances
+	sum = sumBalance(accountArray, 10);
+
+	//output sum of all balances to output file
+	outFile << "The sum of all balances is \n" << sum;
+
+
+	//prompt user for name to search for. Loop ends when user enter "done"
+	while (searchName != "done")
+	{
+
+	cout << "Who do you want to search for (enter done to exit)\n";
+	cin >> searchName;
+
+	searchIndex = searchStruct(accountArray, 10, searchName);
+
+	if (searchIndex != null)
+	{
+		cout << "Found\n";
+		//if search name found, output accountArray information to output file
+		outfile << accountArray[searchIndex].id << " " << acountArray[searchIndex].name << " "
+					<< accountArray[searchIndex].balance << endl;
+	}
+	else
+		cout << accountArray[searchIndex] << " not found.\n";
+
+	}
+
+	outFile.close();
+	cout << "Thank you for using my program.";
+
+	return 0;
+}
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab Exercise : Structs
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#ifndef HEADER_H_
+#define HEADER_H_
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+
+using namespace std;
+
+
+struct Account
+	{
+		string name;
+		int id;
+		double balance;
+
+	};
+
+//prototypes
+/**********************************************************************
+* searchStruct
+* 	This function searches for name in accountArray.name
+*   - returns index of array with search term.
+***********************************************************************/
+int searchStruct(Account accountArray[], int AR_SIZE, string nameKey);
+/**********************************************************************
+* fillStructArray
+* 	This function fill array of structs accountArray[] with name, id,
+* 	and balance from input file
+*   - returns nothing.
+***********************************************************************/
+void fillStructArray (Account accountArray[], int arraySize, string inputFile);
+/**********************************************************************
+* sumBalance
+* 	This function sums the balances of Account accountArray[].balance
+*   - returns sum.
+***********************************************************************/
+float sumBalance (Account accountArray[], int arraySize);
+/**********************************************************************
+* searchBalance
+* 	This function searches for the largest balance in Account accountArray[].
+*   - returns returns index of struct with largest balance.
+***********************************************************************/
+int searchBalance (Account accountArray[], int arraySize);
+
+
+#endif /* HEADER_H_ */
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab Exercise : Structs
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#include "header.h"
+
+/**********************************************************************
+* searchBalance
+* 	This function searches for the largest balance in Account accountArray[].
+*   - returns returns index of struct with largest balance.
+***********************************************************************/
+
+int searchBalance (Account accountArray[], int arraySize)
+
+{
+	int temp = 0;
+	int largestIndex = 0;
+
+	for(int index=0; index < arraySize; index++)
+	    {
+	        if (accountArray[index].balance > temp)
+	        temp = accountArray[index].balance;
+	        largestIndex = index;
+
+	    }
+	    return largestIndex;
+}
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab Exercise : Structs
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#include "header.h"
+
+/**********************************************************************
+* fillStructArray
+* 	This function fill array of structs accountArray[] with name, id,
+* 	and balance from input file
+*   - returns nothing.
+***********************************************************************/
+
+void fillStructArray (Account accountArray[], int arraySize, string inputFile)
+{
+	ifstream inFile;
+
+	inFile.open(inputFile.c_str());
+
+
+	int index = 0;
+
+
+	while (inFile && index < arraySize)
+	{
+		inFile >> accountArray[index].name;
+		inFile >> accountArray[index].id;
+		inFile >> accountArray[index].balance;
+		index++;
+	}
+
+	inFile.close();
+}
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab Exercise : Structs
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+#include "header.h"
+
+/**********************************************************************
+* sumBalance
+* 	This function sums the balances of Account accountArray[].balance
+*   - returns sum.
+***********************************************************************/
+
+float sumBalance (Account accountArray[], int arraySize)
+{
+	int sum = 0;
+	int index = 0;
+
+	while (index < arraySize)
+	{
+		sum += accountArray[index].balance;
+
+		index++;
+	}
+
+	return sum;
+}
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Lab Exercise : Structs
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#include "header.h"
+
+/**********************************************************************
+* searchStruct
+* 	This function searches for name in accountArray.name
+*   - returns index of array with search term.
+***********************************************************************/
+
+int searchStruct(Account accountArray[], int AR_SIZE, string nameKey)
+
+{
+	int index;
+	bool found;
+	index = 0;
+	found = false;
+	while(!found && index < AR_SIZE)
+	{
+		if (accountArray[index].name == nameKey)
+		{
+			found = true;
+	}
+		else
+		{
+			index++;
+		}
+	}
+	return index;
+}
