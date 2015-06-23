@@ -1,0 +1,212 @@
+/*************************************************
+ * AUTHOR       : Daniel Cox and Brett Korp
+ * STUDENT ID   : 900360 and 886028
+ * Lab#         : 8
+ * CLASS        : CS1B
+ * SECTION      : Mon-Fri 8:00am
+ * DUE DATE	    : 6/25/15
+ *************************************************/
+
+#include "header.h"
+
+/*******************************************************************************
+ *
+ *            LAB #8 Introduction to Pointers
+ *
+ *------------------------------------------------------------------------------
+ * This program accepts two integers from a user and finds the sum and product
+ * of these two integers. This program loops until the first input -999.
+ -------------------------------------------------------------------------------
+ * INPUT
+ *		input		: static variable - holds the value of pointer1
+ *		pointer1	: points to static memory location for first input
+ *		pointer2	: points to dynamic memory location for second input
+ * OUTPUT
+ * 		pointer1	: first user input used in sum and product expressions
+ * 		pointer2    : second user input used in sum and product expressions
+ ******************************************************************************/
+
+
+int main ()
+
+{
+
+	//constants
+	const int INPUT_COL = 44;	//CALC - column width for input prompts
+	const int RESULT_COL = 16;	//CALC - column width for output results
+
+	//variables
+	int input;		//IN              - static variable that holds user input
+	int *pointer1;	//IN & CALC & OUT - holds the first number input by user
+	int *pointer2;	//IN & CALC & OUT - holds the second number input by user
+
+	//output print heading to console
+	PrintHeading("Brett Korp & Dan Cox","CS1B", "Mon-Fri 8:00am",
+			8,"Introduction to Pointers", 'L', cout);
+
+	//point pointer1 to the address of that static varibale input
+	pointer1 = &input;
+
+	//point pointer2 to a dynamically created memory location using new
+	pointer2 = new int;
+
+	//check if pointer2 memory was not allocated successfully
+	if(pointer2 == NULL)
+	{
+		//output out of memory error
+		cout << "Out of memory";
+	}
+	//if there was no memory allocation issues, we continue the sequence
+	else
+	{
+		//when the user enters -999 for the first input, we exit the loop
+		while (*pointer1 != -999)
+		{
+
+			//prompt and read first number input from user
+			cout << left;
+			cout << setw(INPUT_COL) << "Input the first value (enter -999 to exit)?";
+			cin >> *pointer1;
+
+			//if user enters -999 skip this code and exit program
+			if(*pointer1 != -999)
+			{
+				//prompt and read second number input from user
+				cout << setw(INPUT_COL) << "Input the second value?";
+				cin >> *pointer2;
+				cout << endl << right;
+
+				//output sum
+				cout << left;
+				cout << setw(RESULT_COL) << "The sum is: ";
+				cout << *pointer1 + *pointer2 << endl;
+
+				//output product
+				cout << setw(RESULT_COL) << "The product is: ";
+				cout << *pointer1 * *pointer2 << endl << endl;
+				cout << right;
+			} //END IF
+		} //END WHILE
+	} //END ELSE
+
+	//free up the dynamic memory we created earlier.
+	delete pointer2;
+
+	//end program
+	return 0;
+}
+/*************************************************
+ * AUTHOR       : Daniel Cox and Brett Korp
+ * STUDENT ID   : 900360 and 886028
+ * Lab#         : 8
+ * CLASS        : CS1B
+ * SECTION      : Mon-Fri 8:00am
+ * DUE DATE	    : 6/25/15
+ *************************************************/
+
+//define header
+#ifndef HEADER_H_
+#define HEADER_H_
+
+//preprocessor directives
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <fstream>
+#include <sstream>
+
+using namespace std;
+
+
+/*********************************************************************
+ * 							Print Heading
+ *
+ * 	This function outputs the class heading to the console. Pass in
+ * 	the class information neatly from the main.cpp and select which
+ * 	type to display.
+ */
+void PrintHeading(const string PROGRAMMER,	// IN & OUT  - Programmer's name
+				  const string CLASS,		// IN & OUT  - Class Name
+				  const string SECTION,		// IN & OUT  - Section Name
+				  const int ASSN_NUM,		// IN & OUT  - Assignment/Lab Number
+				  const string ASSN_NAME,	// IN & OUT  - Assignment/Lab Name
+				  char type,				// IN & CALC - Header type to display
+				  ostream &output);			// IN & OUT  - the type of output
+
+#endif /* HEADER_H_ */
+
+/*************************************************
+ * AUTHOR       : Daniel Cox and Brett Korp
+ * STUDENT ID   : 900360 and 886028
+ * Lab#         : 8
+ * CLASS        : CS1B
+ * SECTION      : Mon-Fri 8:00am
+ * DUE DATE	    : 6/25/15
+ *************************************************/
+
+#include "header.h"
+
+/*********************************************************************
+ * 							Print Heading
+ *
+ * 	This function outputs the class heading to the console. Pass in
+ * 	the class information neatly from the main.cpp and select which
+ * 	type to display.
+ *
+ *--------------------------------------------------------------------
+ *
+ *  INPUT & OUTPUT
+ *  	PROGRAMMER	: The programmers Name ex: (John Smith)
+ *  	CLASS		: The computer science class name ex: (CS1B)
+ *  	SECTION		: The time and day of class ex: (Mon-Fri 8:00am)
+ *  	ASSN_NUM	: the number of the assignment, lab, OR exercise
+ *  	ASSN_NAME	: The name of the assignment, lab, OR exercise
+ *  	type		: The type of header to display
+ *
+ *--------------------------------------------------------------------
+ *  Valid Types:
+ * 		A	: Displays Assignment Header
+ * 		L	: Displays Lab Header
+ * 		E	: Displays Lab Exercise Header
+ *
+ *********************************************************************/
+
+void PrintHeading(
+const string PROGRAMMER,	// IN & OUT  - Programmer's name
+const string CLASS,			// IN & OUT  - Class Name
+const string SECTION,		// IN & OUT  - Section Name
+const int ASSN_NUM,			// IN & OUT  - Assignment/Lab Number
+const string ASSN_NAME,		// IN & OUT  - Assignment/Lab Name
+char type,					// IN & CALC - Header type to display
+ostream &output)			// IN & OUT  - the type of output
+{
+	//force type to upper case
+	type = toupper(type);
+
+	output << left;
+	output << "**************************************************";
+	output << "\n* PROGRAMMED BY : " << PROGRAMMER;
+	output << "\n* " << setw(14) << "CLASS" << ": " << CLASS;
+	output << "\n* " << setw(14) << "SECTION" << ": " << SECTION;
+
+	//if type is A output assignment heading
+	if (type == 'A')
+	{
+		output << "\n* ASSINGMENT #" << setw(2) << ASSN_NUM << ": "
+				<< ASSN_NAME;
+	}
+	//if type is L output lab heading
+	if (type == 'L')
+	{
+		output << "\n* Lab #" << setw(9) << ASSN_NUM << ": " << ASSN_NAME;
+
+	}
+
+	if (type == 'E')
+	{
+		output << "\n* Exercise #" << setw(4) << ASSN_NUM << ": " << ASSN_NAME;
+
+	}
+	output << "\n**************************************************\n\n";
+	output << right;
+}
