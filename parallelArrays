@@ -1,0 +1,326 @@
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Assigment# 2 : Parrallel Arrays
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#include "header.h"
+
+/*************************************************
+ *
+ *            Parrallel Arrays
+ *
+ *------------------------------------------------
+ * This program reads from an input file. Data from
+ * the input file is stored in three parrallel.
+ * The program find the largest balance in the input
+ * file. Sums all of the balances and outputs these
+ * values to an output file. The user is prompted
+ * for a name to search the input for. If the search
+ * name is found. The associated struct is output to
+ * the output file.
+ --------------------------------------------------
+ * INPUT:
+ *	string: name of input file
+ *	string: name of output file
+ *	string: name to search for
+ *
+ *************************************************/
+
+int main ()
+{
+
+		string inputFile = "inputFile.txt";					//input - name of input file
+		string outputFile = "outputFile.txt";			    //input - name of output file
+		string nameKey;                                     //input - name to search for
+		int largestIndex;					                //calc - handler for return of searchBalance function
+		int searchIndex;									//calc - handler for return of searchName function
+		string nameArray[10];								//array - 1 of 3 parallel arrays, array for name
+		int idArray [10];									//input - 2 of 3 parallel arrays, array for id
+		float balanceArray[10];								//input - 3 of 3 parallel aarays, array for balance
+		float sum;											//calc - variable to save sum of balanceArray
+		int counter;										//calc - variable to count number of found names
+
+
+
+		//call to function to fill array from input file
+		FillThreeArray (nameArray, idArray, balanceArray, inputFile, 10);
+
+		//declare output stream variable
+		ofstream outFile;
+
+		//open output file
+		outFile.open(outputFile.c_str());
+
+
+		//call to function to find largest balance in balanceArray
+		//initialize variable with returned index
+		largestIndex = searchBalance (balanceArray, 10);
+
+		//output id, name, balance of parrallel arrays with largest balance
+		outFile << "Highest Balance: " << endl;
+		outFile << "ID #     NAME                     BALANCE DUE\n"
+				   "----     --------------------     -----------\n";
+		outFile << idArray[largestIndex] << "     " << setw(20) << left << nameArray[largestIndex] << "     "
+		        << right << setw(11) << balanceArray[largestIndex] << endl << endl;
+
+
+		//output sum of all outstanding balances
+		outFile << "Total Balance for all person:  " << endl << "$   " <<  sumBalance(balanceArray, 10) << endl << endl;
+
+
+		outFile << "ID #     NAME                     BALANCE DUE\n"
+				   "----     --------------------     -----------\n";
+
+
+		counter = 0;
+		/*Loop prompts user to input name to search for in nameArray().
+		 * User ends loop by entering done.
+		 * Parallel array for each found name is output to outputFile.
+		 * Average of balance due for each found name is summed and averaged.
+		 */
+		while (nameKey != "done")
+		{
+
+		cout << "Who do you want to search for (enter done to exit): ";
+		getline (cin, nameKey);
+
+		searchIndex = searchName(nameArray, 10, nameKey);
+
+
+		if (searchIndex != 10 && nameKey != "done")
+		{
+			cout << "Found\n\n";
+			outFile << idArray[searchIndex] << "     " << setw(20) << left
+					<< nameArray[searchIndex] << "     " << right << setw(11)
+					<< balanceArray[searchIndex] <<  endl;
+			sum += balanceArray[searchIndex];
+			counter++;
+
+		}
+		else if (nameKey != "done")
+			cout << nameKey << " was not found." << endl << endl;
+		else
+			cout << "\nThanks you for using my program.";
+
+		}
+
+		outFile << "..." << endl << endl;
+		outFile << "The Average Balance Due:  $" << sum/counter;
+
+	return 0;
+}
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Assigment# 2 : Parrallel Arrays
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#ifndef HEADER_H_
+#define HEADER_H_
+
+
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+
+
+using namespace std;
+
+//prototypes
+
+void PrintHeading(
+const string PROGRAMMER,
+const string CLASS,
+const string SECTION,
+const int ASSN_NUM,
+const string ASSN_NAME,
+char type,
+ostream &output);
+
+/**********************************************************************
+* FillThreeArray
+* 	This function fills three parallel for Id, Name, Balance
+*   - returns nothing.
+***********************************************************************/
+void FillThreeArray (string nameArray[], int idArray[], float floatArray[],
+					 string inputFile, int arraySize);
+/**********************************************************************
+* searchBalance
+* 	This function searches for the largest balance in balanceArray
+*   - returns index of largest balance.
+***********************************************************************/
+int searchBalance (float balanceArray[], int arraySize);
+/**********************************************************************
+* sumBalance
+* 	This function sums the balances in balanceArray
+*   - returns sum.
+***********************************************************************/
+float sumBalance (float balanceArray[], int arraySize);
+/**********************************************************************
+*searchName
+* 	This function search for nameKey in nameArray
+*   - returns index of found name.
+***********************************************************************/
+int searchName(string nameArray[], int AR_SIZE, string nameKey);
+
+
+
+#endif /* HEADER_H_ */
+
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Assigment# 2 : Parrallel Arrays
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+/**********************************************************************
+* FillThreeArray
+* 	This function fills three parallel for Id, Name, Balance
+*   - returns nothing.
+***********************************************************************/
+
+#include "header.h"
+
+void FillThreeArray (string nameArray[], int idArray[], float balanceArray[],  string inputFile, int arraySize)
+{
+	ifstream inFile;
+
+	inFile.open(inputFile.c_str());
+
+	int index = 0;
+
+	while (inFile && index < arraySize)
+	{
+		getline(inFile, nameArray[index]);
+		inFile >> idArray[index];
+		inFile >> balanceArray[index];
+		inFile.ignore(1000, '\n');
+		index++;
+	}
+
+	inFile.close();
+
+}
+
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Assigment# 2 : Parrallel Arrays
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#include "header.h"
+
+/**********************************************************************
+* searchBalance
+* 	This function searches for the largest balance in balanceArray
+*   - returns index of largest balance.
+***********************************************************************/
+
+int searchBalance (float balanceArray[], int arraySize)
+
+{
+	float temp = 0;
+	int largestIndex = 0;
+
+	for(int index=0; index < arraySize; index++)
+	    {
+	        if (balanceArray[index] > temp)
+	        temp = balanceArray[index];
+	        largestIndex = index;
+
+	    }
+	    return largestIndex;
+}
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+ *STUDENT ID   : 900360
+ *Assigment# 2 : Parrallel Arrays
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#include "header.h"
+
+/**********************************************************************
+*searchName
+* 	This function search for nameKey in nameArray
+*   - returns index of found name.
+***********************************************************************/
+
+int searchName(string nameArray[], int AR_SIZE, string nameKey)
+
+{
+	int index;
+	bool found;
+	index = 0;
+	found = false;
+	while(!found && index < AR_SIZE)
+	{
+		if (nameArray[index] == nameKey)
+		{
+			found = true;
+	}
+		else
+		{
+			index++;
+		}
+	}
+	return index;
+}
+
+/************************************************
+ *AUTHOR       : Daniel Cox
+
+ *STUDENT ID   : 900360
+ *Assigment# 2 : Parrallel Arrays
+ *CLASS        : CS 1B
+ *SECTION      : Summer
+ *DUE DATE	   : 6/23/15
+ ************************************************/
+
+#include "header.h"
+
+/**********************************************************************
+* sumBalance
+* 	This function sums the balances in balanceArray
+*   - returns sum.
+***********************************************************************/
+
+
+float sumBalance (float balanceArray[], int arraySize)
+{
+	float sum = 0;
+	int index = 0;
+
+	while (index < arraySize)
+	{
+		sum += balanceArray[index];
+
+		index++;
+	}
+
+	return sum;
+}
+
+
+
+
